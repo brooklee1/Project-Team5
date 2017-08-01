@@ -8,7 +8,7 @@
 
 /*Sets the background images to the body*/
 body {
-    background: url("../images/trainBackground.png");
+    background: url("../images/simpleBG.png");
 
     /* Center and scale the image nicely */
     background-size: cover;
