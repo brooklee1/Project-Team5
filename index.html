@@ -88,22 +88,11 @@
 
 <body>
 
+<!--Bootstrap grid system in the outside using the ink grid system in the inside-->
+
 <div class="container-fluid">
 
-
     <div class="ink-grid">
-
-        <!--[if lte IE 9 ]>
-        <div class="ink-alert basic" role="alert">
-            <button class="ink-dismiss">&times;</button>
-            <p>
-                <strong>You are using an outdated Internet Explorer version.</strong>
-                Please <a href="http://browsehappy.com/">upgrade to a modern browser</a> to improve your web experience.
-            </p>
-        </div>
-        -->
-
-        <!-- Add your site or application content here -->
 
         <header>
             <h1>License Tracker
@@ -130,14 +119,30 @@
                 </div>
 
                 <div class="panel-body">
+
                     <!-- Sign-up Form (note the various input "types")-->
+
+                    <!--Input Boxes-->
+                    <!--Name: License Name; id: licenseName-input-->
+                    <!--Name: License Expiration; id: licenseExpiration-input-->
+                    <!--Name: First Name; id: firstName-input-->
+                    <!--Name: Last Name; id: lastName-input-->
+                    <!--Name: Phone Number; id: phoneNumber-input-->
+                    <!--Name: License Expiration; id: licenseName-input-->
+
+                    <!--Radio Buttons-->
+                    <!--Name: SMS; id: smsPreference-input-->
+                    <!--Name: Email; id: emailPreference-input-->
+                    <!--Name: Both; id: bothPreference-input-->
+
                     <form role="form">
                         <div class="form-group">
                             <label for="licenseName-input" style="font-weight: bold">License Name</label>
                             <input class="form-control" id="licenseName-input" type="text">
                         </div>
                         <div class="form-group">
-                            <label for="licenseExpiration-input" style="font-weight: bold">License Expiration <br>(MM/DD/YYYY Ex: 02/29/1996)</label>
+                            <label for="licenseExpiration-input" style="font-weight: bold">License Expiration <br>(MM/DD/YYYY
+                                Ex: 02/29/1996)</label>
                             <input class="form-control" id="licenseExpiration-input" type="email">
                         </div>
                         <div class="form-group">
@@ -157,11 +162,13 @@
 
                         <ul class="control unstyled">
 
-                            <label style="font-weight: bold">Phone Number</label>
+                            <label style="font-weight: bold">Contact Preference</label>
                             <li><input type="radio" id="smsPreference-input" name="rb" value="">
                                 <label for="smsPreference-input">SMS</label></li>
                             <li><input type="radio" id="emailPreference-input" name="rb" value="">
                                 <label for="emailPreference-input">EMAIL</label></li>
+                            <li><input type="radio" id="bothPreference-input" name="rb" value="">
+                                <label for="bothPreference-input">BOTH</label></li>
                         </ul>
 
                         <button class="btn btn-default" id="add-user" type="submit">Submit</button>
@@ -193,6 +200,17 @@
                             <th>Expiration Date</th>
                         </tr>
                         </thead>
+
+
+                        <!--To add a new table row and item do as follows in javascript-->
+
+                        <!--var table = $("#tableBody");-->
+
+                        <!--var tableRow = $("<tr>");-->
+
+                        <!--table.append(tableRow);-->
+
+                        <!--tableRow.append("<td>" + tableItem  + "</td>");-->
 
                         <tbody id="tableBody">
                         <tr>
@@ -280,23 +298,15 @@
     </div>
 
 
-
 </div>
 
+
+<!--Footer Layout-->
+
+
+<!--Using the ink grid system-->
+
 <div class="ink-grid">
-
-    <!--[if lte IE 9 ]>
-    <div class="ink-alert basic" role="alert">
-        <button class="ink-dismiss">&times;</button>
-        <p>
-            <strong>You are using an outdated Internet Explorer version.</strong>
-            Please <a href="http://browsehappy.com/">upgrade to a modern browser</a> to improve your web experience.
-        </p>
-    </div>
-    -->
-
-    <!-- Add your site or application content here -->
-
 
     <footer class="clearfix">
         <div class="ink-grid">
@@ -309,19 +319,20 @@
         </div>
     </footer>
 
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-
-
-            $("#table1").DataTable();
-
-        });
-
-    </script>
-
-
 </div>
+
+<!--Sample code for datatables for them to run in the meantime-->
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $("#table1").DataTable();
+
+    });
+
+</script>
 
 
 </body>

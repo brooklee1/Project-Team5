@@ -2,6 +2,29 @@
     Global Page Settings
  */
 
+
+
+.container-fluid {
+    width: 85%;
+}
+
+.ink-navigation
+{
+    margin-bottom: 2%;
+}
+
+/*Sets the background images to the body*/
+body {
+    background: url("../images/simpleBG.png");
+
+    /* Center and scale the image nicely */
+    background-size: cover;
+
+    font-family: "Times New Roman";
+}
+
+/*ink grid system settings*/
+
 @media screen and (max-width: 1260px) and (min-width: 961px) {
 
     .ink-grid {
@@ -33,25 +56,6 @@
 
 }
 
-.container-fluid {
-    width: 85%;
-}
-
-.ink-navigation
-{
-    margin-bottom: 2%;
-}
-
-/*Sets the background images to the body*/
-body {
-    background: url("../images/simpleBG.png");
-
-    /* Center and scale the image nicely */
-    background-size: cover;
-
-    font-family: "Times New Roman";
-}
-
 .ink-grid{
     width: 100%;
     max-width: 100%;
@@ -61,6 +65,8 @@ body {
     margin-top: 1%;
 }
 
+
+/*Nav bar settings*/
 
 h1 small {
     color: black;
@@ -76,13 +82,10 @@ header h1 small:before {
     font-size: 1.6em;
 }
 
+/*footer settings*/
+
 footer {
     background: #ccc;
-}
-
-.dataTables_filter
-{
-    float: right;
 }
 
 .panel-title {
@@ -90,6 +93,12 @@ footer {
     font-weight: bold;
 
 }
+
+/*Panel Bodies*/
+
+
+/*This changes the looks and heading of both Details*/
+/*and existing customer panels*/
 
 #details, #existingCustomer {
     overflow: hidden;
@@ -104,10 +113,8 @@ footer {
     border-color: #7f8488;
 }
 
-
+/*Text Fonts*/
 .display-2 {
-    font-family: TypographyBold;
-
     font-size: 40px;
 }
 
@@ -115,8 +122,23 @@ footer {
     font-size: 20px;
 }
 
+
+/*Table settings*/
+
 th {
     font-weight: bold;
+}
+
+.dataTables_filter
+{
+    float: right;
+}
+
+/*details settings*/
+
+#add-user
+{
+    float: right;
 }
 
 
