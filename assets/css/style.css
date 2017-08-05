@@ -136,11 +136,11 @@ th {
 
 /*details settings*/
 
-#add-user, #update-user
+#add-user, #update-user, #delete-user
 {
     float: right;
 
-    margin-left: 1%;
+    margin-left: 2%;
 }
 
 
@@ -153,8 +153,8 @@ th {
     margin-top: 1.75%;
 }
 
-.selected{
+.selected {
 
-    background-color: red;
+    background-color: #7dbbd1 !important;
+
 }
-

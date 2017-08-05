@@ -154,6 +154,8 @@
                         <button class="btn btn-default" id="add-user">Add</button>
 
                         <button class="btn btn-default" id="update-user">Update</button>
+
+                        <button class="btn btn-default" id="delete-user">Delete</button>
                     </div>
 
                 </div>
@@ -179,8 +181,6 @@
                             <th>Last Name</th>
                             <th>License</th>
                             <th>Expiration Date</th>
-                            <th>License</th>
-                            <th>Expiration Date</th>
                         </tr>
                         </thead>
 
@@ -200,73 +200,55 @@
                             <td>Tiger Nixon</td>
                             <td>System Architect</td>
                             <td>Edinburgh</td>
-                            <td>61</td>
                             <td>2011/04/25</td>
-                            <td>$320,800</td>
                         </tr>
                         <tr>
                             <td>Garrett Winters</td>
                             <td>Accountant</td>
                             <td>Tokyo</td>
-                            <td>63</td>
                             <td>2011/07/25</td>
-                            <td>$170,750</td>
                         </tr>
                         <tr>
                             <td>Ashton Cox</td>
                             <td>Junior Technical Author</td>
                             <td>San Francisco</td>
-                            <td>66</td>
                             <td>2009/01/12</td>
-                            <td>$86,000</td>
                         </tr>
                         <tr>
                             <td>Cedric Kelly</td>
                             <td>Senior Javascript Developer</td>
                             <td>Edinburgh</td>
-                            <td>22</td>
                             <td>2012/03/29</td>
-                            <td>$433,060</td>
                         </tr>
                         <tr>
                             <td>Airi Satou</td>
                             <td>Accountant</td>
                             <td>Tokyo</td>
-                            <td>33</td>
                             <td>2008/11/28</td>
-                            <td>$162,700</td>
                         </tr>
                         <tr>
                             <td>Brielle Williamson</td>
                             <td>Integration Specialist</td>
                             <td>New York</td>
-                            <td>61</td>
                             <td>2012/12/02</td>
-                            <td>$372,000</td>
                         </tr>
                         <tr>
                             <td>Herrod Chandler</td>
                             <td>Sales Assistant</td>
                             <td>San Francisco</td>
-                            <td>59</td>
                             <td>2012/08/06</td>
-                            <td>$137,500</td>
                         </tr>
                         <tr>
                             <td>Rhona Davidson</td>
                             <td>Integration Specialist</td>
                             <td>Tokyo</td>
-                            <td>55</td>
                             <td>2010/10/14</td>
-                            <td>$327,900</td>
                         </tr>
                         <tr>
                             <td>Colleen Hurst</td>
                             <td>Javascript Developer</td>
                             <td>San Francisco</td>
-                            <td>39</td>
                             <td>2009/09/15</td>
-                            <td>$205,500</td>
                         </tr>
 
                         </tbody>
@@ -349,26 +331,81 @@
 
         var table = $("#table1").DataTable();
 
-        $("#table1 tbody").on( 'click', 'tr', function () {
+        $("#table1 tbody").on( 'click', 'tr', function (e) {
 
             console.log($(this).hasClass('selected'));
 
             console.log($(this).attr("id"));
 
             if ( $(this).hasClass('selected') ) {
+
+
                 $(this).removeClass('selected');
 
+                $("#firstName-input").val("");
+                $("#lastName-input").val("");
+                $("#licenseName-input").val("");
+                $("#licenseExpiration-input").val("");
+                $("#email-input").val("");
+                $("#phoneNumber-input").val("");
 
             }
+
             else {
 
 
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
 
-                console.log($(this).addClass('selected'));
+                var firstName = $(this).eq(0).children("td").eq(0)[0].innerText;
+
+                var lastName = $(this).eq(0).children("td").eq(1)[0].innerText;
+
+                var licenseName = $(this).eq(0).children("td").eq(2)[0].innerText;
+
+                var expirationDate = $(this).eq(0).children("td").eq(3)[0].innerText;
+
+                console.log(firstName);
+                console.log(lastName);
+
+                $("#firstName-input").val(firstName);
+                $("#lastName-input").val(lastName);
+                $("#licenseName-input").val(licenseName);
+                $("#licenseExpiration-input").val(expirationDate);
+
+                $('#update-user').on( 'click', function () {
+
+                    var firstName = $("#firstName-input").val();
+                    var lastName = $("#lastName-input").val();
+                    var licenseName = $("#licenseName-input").val();
+                    var expirationDate = $("#licenseExpiration-input").val();
+
+
+                    $(this).eq(0).children("td").eq(0)[0].innerText(firstName);
+                    $(this).eq(0).children("td").eq(1)[0].innerText(lastName);
+                    $(this).eq(0).children("td").eq(2)[0].innerText(licenseName);
+                    $(this).eq(0).children("td").eq(3)[0].innerText(expirationDate);
+
+                } );
+
             }
+
+
         });
+
+
+        $('#delete-user').click( function () {
+            table.row('.selected').remove().draw( false );
+        } );
+
+        $('#add-user').on( 'click', function () {
+
+            table.row.add( [$("#firstName-input").val(),
+            $("#lastName-input").val(),
+            $("#licenseName-input").val(),
+            $("#licenseExpiration-input").val()] ).draw( false );
+
+        } );
 
     });
 </script>
