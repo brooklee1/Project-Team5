@@ -137,7 +137,7 @@
                                     <span class="caret"></span></button>
 
                                 <ul class="dropdown-menu">
-                                    <li><a id="#att">ATT & T</a></li>
+                                    <li><a id="#att">AT&T</a></li>
                                     <li><a id="#verizonWireless">Verizon Wireless</a></li>
                                     <li><a id="#tMobile">T-Mobile</a></li>
                                     <li><a id="#sprint">Sprint</a></li>
@@ -333,10 +333,6 @@
 
         $("#table1 tbody").on( 'click', 'tr', function (e) {
 
-            console.log($(this).hasClass('selected'));
-
-            console.log($(this).attr("id"));
-
             if ( $(this).hasClass('selected') ) {
 
 
@@ -365,8 +361,7 @@
 
                 var expirationDate = $(this).eq(0).children("td").eq(3)[0].innerText;
 
-                console.log(firstName);
-                console.log(lastName);
+                console.log($(this).eq(0).children("td").eq(0)["0"].innerHTML);
 
                 $("#firstName-input").val(firstName);
                 $("#lastName-input").val(lastName);
@@ -381,10 +376,10 @@
                     var expirationDate = $("#licenseExpiration-input").val();
 
 
-                    $(this).eq(0).children("td").eq(0)[0].innerText(firstName);
-                    $(this).eq(0).children("td").eq(1)[0].innerText(lastName);
-                    $(this).eq(0).children("td").eq(2)[0].innerText(licenseName);
-                    $(this).eq(0).children("td").eq(3)[0].innerText(expirationDate);
+                    $(".selected").eq(0).children("td").eq(0)[0].innerHTML(firstName);
+                    $(".selected").eq(0).children("td").eq(1)[0].innerHTML(lastName);
+                    $(".selected").eq(0).children("td").eq(2)[0].innerHTML(licenseName);
+                    $(".selected").eq(0).children("td").eq(3)[0].innerHTML(expirationDate);
 
                 } );
 
