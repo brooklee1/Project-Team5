@@ -19,30 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
 
-    <!--Scripts-->
 
-    <!--JQUERY-->
-    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
-
-    <!--Datatables-->
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
-
-    <!--AJAX-->
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-
-    <!--Firebase data-->
-    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-
-    <!-- inks js bundle -->
-    <script type="text/javascript" src="http://fastly.ink.sapo.pt/3.1.10/js/ink-all.js"></script>
-
-    <!--Local JS-->
-    <script type="text/javascript" src="assets/js/script.js"></script>
-
-    <!--Moment.JS-->
-    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 
     <!--Bootstrap-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -63,20 +40,6 @@
     <link rel="stylesheet" href="http://cdn.ink.sapo.pt/3.1.10/css/ink-ie.min.css" type="text/css" media="screen"
           title="no title" charset="utf-8">
     <![endif]-->
-
-    <!-- test browser flexbox support and load legacy grid if unsupported -->
-    <script type="text/javascript" src="http://cdn.ink.sapo.pt/3.1.10/js/modernizr.js"></script>
-    <script type="text/javascript">
-        Modernizr.load({
-            test: Modernizr.flexbox,
-            nope: 'http://cdn.ink.sapo.pt/3.1.10/css/ink-legacy.min.css'
-        });
-    </script>
-
-    <!-- load Ink's javascript files from the cdn -->
-    <script type="text/javascript" src="http://cdn.ink.sapo.pt/3.1.10/js/holder.js"></script>
-    <script type="text/javascript" src="http://cdn.ink.sapo.pt/3.1.10/js/ink-all.min.js"></script>
-    <script type="text/javascript" src="http://cdn.ink.sapo.pt/3.1.10/js/autoload.js"></script>
 
     <!--Local CSS-->
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
@@ -100,9 +63,7 @@
             </h1>
             <nav class="ink-navigation">
                 <ul class="menu horizontal black">
-                    <li class="active"><a href="#">item</a></li>
-                    <li><a href="#">item</a></li>
-                    <li><a href="#">item</a></li>
+                    <li class="active"><a href="#">Home</a></li>
                 </ul>
             </nav>
         </header>
@@ -135,7 +96,7 @@
                     <!--Name: Email; id: emailPreference-input-->
                     <!--Name: Both; id: bothPreference-input-->
 
-                    <form role="form">
+                    <div role="form">
                         <div class="form-group">
                             <label for="licenseName-input" style="font-weight: bold">License Name</label>
                             <input class="form-control" id="licenseName-input" type="text">
@@ -156,23 +117,45 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="email-input" style="font-weight: bold">Email</label>
+                            <input class="form-control" id="email-input">
+                        </div>
+
+                        <div class="form-group">
                             <label for="phoneNumber-input" style="font-weight: bold">Phone Number</label>
                             <input class="form-control" id="phoneNumber-input">
                         </div>
 
-                        <ul class="control unstyled">
+                        <div class="form-group" id="dropdownMenu">
 
-                            <label style="font-weight: bold">Contact Preference</label>
-                            <li><input type="radio" id="smsPreference-input" name="rb" value="">
-                                <label for="smsPreference-input">SMS</label></li>
-                            <li><input type="radio" id="emailPreference-input" name="rb" value="">
-                                <label for="emailPreference-input">EMAIL</label></li>
-                            <li><input type="radio" id="bothPreference-input" name="rb" value="">
-                                <label for="bothPreference-input">BOTH</label></li>
-                        </ul>
+                            <div class="dropup">
 
-                        <button class="btn btn-default" id="add-user" type="submit">Submit</button>
-                    </form>
+                                <label style="font-weight: bold">Phone Carrier</label>
+
+                                <button class="btn btn-default dropdown-toggle"
+                                        type="button" data-toggle="dropdown">
+                                    <span class="caret"></span></button>
+
+                                <ul class="dropdown-menu">
+                                    <li><a id="#att">ATT & T</a></li>
+                                    <li><a id="#verizonWireless">Verizon Wireless</a></li>
+                                    <li><a id="#tMobile">T-Mobile</a></li>
+                                    <li><a id="#sprint">Sprint</a></li>
+                                    <li class="divider"></li>
+                                    <li><a id="#metroPCS">Metro PCS</a></li>
+                                    <li><a id="#virginMobile">Virgin Mobile</a></li>
+                                    <li><a id="#boostMobile">Boost Mobile</a></li>
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                        <button class="btn btn-default" id="add-user">Add</button>
+
+                        <button class="btn btn-default" id="update-user">Update</button>
+                    </div>
+
                 </div>
 
             </div>
@@ -213,7 +196,7 @@
                         <!--tableRow.append("<td>" + tableItem  + "</td>");-->
 
                         <tbody id="tableBody">
-                        <tr>
+                        <tr id="firstRow">
                             <td>Tiger Nixon</td>
                             <td>System Architect</td>
                             <td>Edinburgh</td>
@@ -310,29 +293,86 @@
 
     <footer class="clearfix">
         <div class="ink-grid">
-            <ul class="unstyled inline half-vertical-space">
-                <li class="active"><a href="#">Welcome</a></li>
-                <li><a href="#">Portfolio</a></li>
-                <li><a href="#">About</a></li>
-            </ul>
             <p class="note">Copyright © Team Ninja Turtles</p>
         </div>
     </footer>
 
 </div>
 
+<!--Scripts-->
+
+<!--JQUERY-->
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+
+<!--AJAX-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- inks js bundle -->
+<script type="text/javascript" src="http://fastly.ink.sapo.pt/3.1.10/js/ink-all.js"></script>
+
+<!--Bootstrap-->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!--Datatables-->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+
+<!--Local JS-->
+<script type="text/javascript" src="assets/js/script.js"></script>
+
+<!--Moment.JS-->
+<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+<!--Firebase data-->
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+
+<!-- test browser flexbox support and load legacy grid if unsupported -->
+<script type="text/javascript" src="http://cdn.ink.sapo.pt/3.1.10/js/modernizr.js"></script>
+<script type="text/javascript">
+    Modernizr.load({
+        test: Modernizr.flexbox,
+        nope: 'http://cdn.ink.sapo.pt/3.1.10/css/ink-legacy.min.css'
+    });
+</script>
+
+<!-- load Ink's javascript files from the cdn -->
+<script type="text/javascript" src="http://cdn.ink.sapo.pt/3.1.10/js/holder.js"></script>
+<script type="text/javascript" src="http://cdn.ink.sapo.pt/3.1.10/js/ink-all.min.js"></script>
+<script type="text/javascript" src="http://cdn.ink.sapo.pt/3.1.10/js/autoload.js"></script>
+
+
 <!--Sample code for datatables for them to run in the meantime-->
 
 <script type="text/javascript">
-
     $(document).ready(function () {
 
+        var table = $("#table1").DataTable();
 
-        $("#table1").DataTable();
+        $("#table1 tbody").on( 'click', 'tr', function () {
+
+            console.log($(this).hasClass('selected'));
+
+            console.log($(this).attr("id"));
+
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+
+
+            }
+            else {
+
+
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+
+                console.log($(this).addClass('selected'));
+            }
+        });
 
     });
-
 </script>
+
 
 
 </body>

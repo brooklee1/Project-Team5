@@ -136,9 +136,25 @@ th {
 
 /*details settings*/
 
-#add-user
+#add-user, #update-user
 {
     float: right;
+
+    margin-left: 1%;
 }
 
+
+.clearfix{
+
+    padding: 2%;
+
+    text-align: center;
+
+    margin-top: 1.75%;
+}
+
+.selected{
+
+    background-color: red;
+}
 
