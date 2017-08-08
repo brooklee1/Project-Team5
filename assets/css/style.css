@@ -100,7 +100,7 @@ footer {
 /*This changes the looks and heading of both Details*/
 /*and existing customer panels*/
 
-#details, #existingCustomer {
+#details, #existingCustomer, #renewingLicenseBox {
     overflow: hidden;
 
     background-color: #c2c8cc;

@@ -19,8 +19,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
 
-
-
     <!--Bootstrap-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -104,7 +102,8 @@
                             <input class="form-control" id="licenseName-input" type="text">
                         </div>
                         <div class="form-group">
-                            <label for="licenseExpiration-input" style="font-weight: bold">License Expiration <span class="text-muted">(Ex: 02/29/1996)</span></label>
+                            <label for="licenseExpiration-input" style="font-weight: bold">License Expiration <span
+                                    class="text-muted">(Ex: 02/29/1996)</span></label>
                             <input class="form-control" id="licenseExpiration-input" type="date">
                         </div>
                         <div class="form-group">
@@ -157,6 +156,8 @@
                         <button class="btn btn-default" id="update-user">Update</button>
 
                         <button class="btn btn-default" id="delete-user">Delete</button>
+
+
                     </div>
 
                 </div>
@@ -264,6 +265,28 @@
     </div>
 
 
+    <!--Details box that search for any sort for license inside of the database-->
+    <div class="row">
+
+        <!--Where the licenses are bing displayed in a search box-->
+
+        <div class="col-lg-12">
+            <div class="panel panel-primary" id="renewingLicenseBox">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Renewing License</h3>
+                </div>
+
+                <div class="panel-body" id="renewingLicenseBody">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
 </div>
 
 
@@ -332,9 +355,9 @@
 
         var table = $("#table1").DataTable();
 
-        $("#table1 tbody").on( 'click', 'tr', function (e) {
+        $("#table1 tbody").on('click', 'tr', function (e) {
 
-            if ( $(this).hasClass('selected') ) {
+            if ($(this).hasClass('selected')) {
 
 
                 $(this).removeClass('selected');
@@ -369,7 +392,7 @@
                 $("#licenseName-input").val(licenseName);
                 $("#licenseExpiration-input").val(expirationDate);
 
-                $('#update-user').on( 'click', function () {
+                $('#update-user').on('click', function () {
 
                     var firstName = $("#firstName-input").val();
                     var lastName = $("#lastName-input").val();
@@ -382,7 +405,7 @@
                     $(".selected").eq(0).children("td").eq(2)[0].innerHTML(licenseName);
                     $(".selected").eq(0).children("td").eq(3)[0].innerHTML(expirationDate);
 
-                } );
+                });
 
             }
 
@@ -390,22 +413,21 @@
         });
 
 
-        $('#delete-user').click( function () {
-            table.row('.selected').remove().draw( false );
-        } );
+        $('#delete-user').click(function () {
+            table.row('.selected').remove().draw(false);
+        });
 
-        $('#add-user').on( 'click', function () {
+        $('#add-user').on('click', function () {
 
-            table.row.add( [$("#firstName-input").val(),
-            $("#lastName-input").val(),
-            $("#licenseName-input").val(),
-            $("#licenseExpiration-input").val()] ).draw( false );
+            table.row.add([$("#firstName-input").val(),
+                $("#lastName-input").val(),
+                $("#licenseName-input").val(),
+                $("#licenseExpiration-input").val()]).draw(false);
 
-        } );
+        });
 
     });
 </script>
-
 
 
 </body>
