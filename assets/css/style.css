@@ -134,6 +134,13 @@ th {
     float: right;
 }
 
+.text-muted
+{
+    font-size: 13px;
+
+}
+
+
 /*details settings*/
 
 #add-user, #update-user, #delete-user
