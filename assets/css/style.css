@@ -2,8 +2,6 @@
     Global Page Settings
  */
 
-
-
 .container-fluid {
     width: 85%;
 }
@@ -24,37 +22,6 @@ body {
 }
 
 /*ink grid system settings*/
-
-@media screen and (max-width: 1260px) and (min-width: 961px) {
-
-    .ink-grid {
-        width: 100%;
-        max-width: 100%;
-        padding: 0;
-    }
-
-}
-
-
-@media screen and (min-width: 1261px) {
-    .ink-grid {
-        width: 100%;
-        max-width: 100%;
-        padding: 0;
-
-    }
-
-}
-
-@media screen and (max-width: 960px) and (min-width: 641px) {
-    .ink-grid {
-        width: 100%;
-        max-width: 100%;
-        padding: 0;
-
-    }
-
-}
 
 .ink-grid{
     width: 100%;
@@ -165,3 +132,129 @@ th {
     background-color: #7dbbd1 !important;
 
 }
+
+/*Mobile Responsiveness*/
+
+@media screen and (max-width: 1260px) and (min-width: 961px) {
+
+    .ink-grid {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+    }
+
+}
+
+
+@media screen and (min-width: 1261px) {
+    .ink-grid {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+
+    }
+
+}
+
+@media screen and (max-width: 960px) and (min-width: 641px) {
+
+    .ink-grid {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+
+
+    /*Sets the background images to the body*/
+    body {
+        /* Center and scale the image nicely */
+        background-size: 100% 100%;
+
+        background-repeat: no-repeat;
+
+    }
+
+
+}
+
+@media screen and (max-width: 768px) and (min-width: 480px) {
+
+    header h1 {
+        font-size: 1.5em;
+    }
+
+    nav
+    {
+        font-size: 85%;
+    }
+
+    .panel-title
+    {
+        font-size: 85%;
+    }
+
+    .panel-body
+    {
+        font-size: 85%;
+    }
+
+    #table1_wrapper
+    {
+
+        font-size: 85%;
+
+    }
+
+    .col-sm-6 {
+        width: 50%;
+
+        float: left;
+    }
+
+}
+
+
+@media screen and (max-width: 480px){
+
+    header h1 {
+        font-size: 1.25em;
+    }
+
+    nav
+    {
+        font-size: 75%;
+    }
+
+    .panel-title
+    {
+        font-size: 75%;
+    }
+
+    .panel-body
+    {
+        font-size: 75%;
+    }
+
+    #table1_wrapper
+    {
+
+        font-size: 75%;
+
+    }
+
+    .col-sm-6 {
+        width: 50%;
+
+        float: left;
+    }
+}
+
+
+
+
+
