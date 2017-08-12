@@ -38,7 +38,6 @@
     <link rel="stylesheet" href="http://cdn.ink.sapo.pt/3.1.10/css/ink-ie.min.css" type="text/css" media="screen"
           title="no title" charset="utf-8">
     <![endif]-->
-    
 
 
     <!--Local CSS-->
@@ -61,13 +60,34 @@
             <h1>License Tracker
                 <small>Ninja Turtles LLC</small>
             </h1>
-            <nav class="ink-navigation">
-                <ul class="menu horizontal black">
-                    <li class="active"><a href="index.html">Home</a></li>
-                    <li><a href="login.html">Log In</a></li>
-                    <li><a href="signup.html">Sign Up</a></li>
-                </ul>
-            </nav>
+
+            <div class="row">
+                <nav class="ink-navigation">
+
+                    <div class="col-md-6">
+
+                        <ul class="menu horizontal black">
+                            <li class="active"><a href="index.html">Home</a></li>
+                            <li><a href="login.html">Log In</a></li>
+                            <li><a href="signup.html">Sign Up</a>
+
+                        </ul>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <ul class="breadcrumbs black">
+                            <div class="userBox">
+                            <li><a href="#">User: <span id="userLoggedIn"></span> </a></li>
+                            <li><a href="#">Log Out</a></li>
+                            </div>
+                        </ul>
+
+                    </div>
+                </nav>
+
+            </div>
         </header>
 
     </div>
@@ -308,7 +328,6 @@
 </div>
 
 <!--Scripts-->
-
 
 
 <!--JQUERY-->
