@@ -32,16 +32,13 @@ body {
     margin-top: 1%;
 }
 
-.row
+
+#navBar
 {
-    margin-bottom: 1%;
+    margin-left: 0;
+    margin-right: 0;
 }
 
-.col-md-6
-{
-
-    width: 50%;
-}
 
 .breadcrumbs
 {
@@ -52,7 +49,6 @@ body {
 }
 
 
-
 .userBox
 {
     margin-right: 5%;
@@ -60,15 +56,15 @@ body {
 
 /*Nav bar settings*/
 
-h1 small {
+#titleCompany small {
     color: black;
 }
 
-header h1 {
+#titleCompany {
     font-size: 2em;
 }
 
-header h1 small:before {
+#titleCompany small:before {
     content: "|";
     margin: 0 0.5em;
     font-size: 1.6em;
@@ -158,6 +154,11 @@ th {
 
 }
 
+.navbar-toggle.pull-left
+{
+    margin-left: 5%;
+}
+
 /*Mobile Responsiveness*/
 
 @media screen and (max-width: 1260px) and (min-width: 961px) {
@@ -204,12 +205,37 @@ th {
 
     }
 
+    .side-collapse-container{
+        width:100%;
+        position:relative;
+        left:0;
+        transition:left .4s;
+    }
+    .side-collapse-container.out{
+        left:200px;
+    }
+    .side-collapse {
+        top:50px;
+        bottom:0;
+        left:0;
+        width:100%;
+        overflow:hidden;
+        transition:width .4s;
+    }
+    .side-collapse.in {
+        width:0;
+        height: 0;
+        overflow: hidden;
+    }
+
+
+
 
 }
 
 @media screen and (max-width: 768px) and (min-width: 480px) {
 
-    header h1 {
+    #titleCompany {
         font-size: 1.5em;
     }
 
@@ -235,10 +261,27 @@ th {
 
     }
 
-    .col-sm-6 {
-        width: 50%;
-
-        float: left;
+    .side-collapse-container{
+        width:100%;
+        position:relative;
+        left:0;
+        transition:left .4s;
+    }
+    .side-collapse-container.out{
+        left:200px;
+    }
+    .side-collapse {
+        top:50px;
+        bottom:0;
+        left:0;
+        width:100%;
+        overflow:hidden;
+        transition:width .4s;
+    }
+    .side-collapse.in {
+        width:0;
+        height: 0;
+        overflow: hidden;
     }
 
 }
@@ -246,7 +289,7 @@ th {
 
 @media screen and (max-width: 480px){
 
-    header h1 {
+    #titleCompany {
         font-size: 1.25em;
     }
 
@@ -277,6 +320,31 @@ th {
 
         float: left;
     }
+
+    .side-collapse-container{
+        width:100%;
+        position:relative;
+        left:0;
+        transition:left .4s;
+    }
+    .side-collapse-container.out{
+        left:200px;
+    }
+    .side-collapse {
+        top:50px;
+        bottom:0;
+        left:0;
+        width:100%;
+        overflow:hidden;
+        transition:width .4s;
+    }
+    .side-collapse.in {
+        width:0;
+        height: 0;
+        overflow: hidden;
+    }
+
+
 }
 
 

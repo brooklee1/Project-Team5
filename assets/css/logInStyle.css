@@ -17,7 +17,7 @@
     background: #eceeee;
     border: 1px solid #42464b;
     border-radius: 6px;
-    height: 257px;
+    height: 200px;
     margin: 10% 40% 0 40%;
     width: 298px;
 }
@@ -118,7 +118,7 @@ input[type="submit"] {
     text-align: center;
     text-shadow: 1px 1px 0px #37a69b;
     padding-top: 6px;
-    margin: 29px 0 0 29px;
+    margin: 40px 0 0 29px;
     position: relative;
     cursor: pointer;
     border: none;
@@ -140,7 +140,7 @@ input[type="submit"] {
     opacity: 0.2;
     width: 270px;
 
-    margin-bottom: 12%;
+    margin-bottom: 30%;
 }
 
 input[type="submit"]:active {
@@ -187,15 +187,15 @@ body {
 
 /*Nav bar settings*/
 
-h1 small {
+#titleCompany small {
     color: black;
 }
 
-header h1 {
+#titleCompany {
     font-size: 2em;
 }
 
-header h1 small:before {
+#titleCompany small:before {
     content: "|";
     margin: 0 0.5em;
     font-size: 1.6em;
@@ -284,6 +284,11 @@ th {
 
 }
 
+.navbar-toggle.pull-left
+{
+    margin-left: 5%;
+}
+
 /*Mobile Responsiveness*/
 
 @media screen and (max-width: 1260px) and (min-width: 961px) {
@@ -342,7 +347,7 @@ th {
 
 @media screen and (max-width: 768px) and (min-width: 480px) {
 
-    header h1 {
+    #titleCompany {
         font-size: 1.5em;
     }
 
@@ -370,13 +375,36 @@ th {
         width: 70%;
     }
 
+    .side-collapse-container{
+        width:100%;
+        position:relative;
+        left:0;
+        transition:left .4s;
+    }
+    .side-collapse-container.out{
+        left:200px;
+    }
+    .side-collapse {
+        top:50px;
+        bottom:0;
+        left:0;
+        width:100%;
+        overflow:hidden;
+        transition:width .4s;
+    }
+    .side-collapse.in {
+        width:0;
+        height: 0;
+        overflow: hidden;
+    }
+
 
 }
 
 
 @media screen and (max-width: 480px){
 
-    header h1 {
+    #titleCompany {
         font-size: 1.25em;
     }
 
@@ -404,14 +432,72 @@ th {
     {
         width: 70%;
     }
+
+    .side-collapse-container{
+        width:100%;
+        position:relative;
+        left:0;
+        transition:left .4s;
+    }
+    .side-collapse-container.out{
+        left:200px;
+    }
+    .side-collapse {
+        top:50px;
+        bottom:0;
+        left:0;
+        width:100%;
+        overflow:hidden;
+        transition:width .4s;
+    }
+    .side-collapse.in {
+        width:0;
+        height: 0;
+        overflow: hidden;
+    }
+
 }
 
-@media screen and (max-width: 320px){
+@media screen and (max-width: 320px) and (min-width: 150px){
+
+    #titleCompany {
+        font-size: 1em;
+    }
 
     .login
     {
         margin: 60% 10% 55%;
 
     }
+
+    .side-collapse-container{
+        width:100%;
+        position:relative;
+        left:0;
+        transition:left .4s;
+    }
+    .side-collapse-container.out{
+        left:200px;
+    }
+    .side-collapse {
+        top:50px;
+        bottom:0;
+        left:0;
+        width:100%;
+        overflow:hidden;
+        transition:width .4s;
+    }
+    .side-collapse.in {
+        width:0;
+        height: 0;
+        overflow: hidden;
+    }
+
+    #signInButton, #username
+    {
+        margin-left: 20px;
+    }
+
+
 
 }
