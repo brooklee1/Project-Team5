@@ -19,7 +19,7 @@
             if(userName == "" || userName == null || userName == undefined){
                 console.log("User Name was not set")
             }else{
-                window.location.href = "file:///C:/Users/Nidant/Desktop/Home%20Work/Week8/Project-Team5/index.html";
+                window.location.href = "../../home.html";
             };
 
             

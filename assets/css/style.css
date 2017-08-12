@@ -95,6 +95,11 @@ footer {
 
 }
 
+#renewingLicenseBox
+{
+    margin-bottom: 5%;
+}
+
 .panel-primary>.panel-heading, .panel-primary {
 
     background-color: #7f8488;
