@@ -191,13 +191,14 @@
     // bing-------------------------------------------------------------------------------------------------------------------------------------------------------
     $(document).on("click", '.renew', function() {
 
-                bingSearch({
+                bingSearch( {
+                    // var license = $('#licenseName-input').val();
 
                     apiKey: '750b5059619f4815b940215b929846f1', //api Key
                     keyword: license + "renew", // keyword lookup
                     onSuccess: function(response) {
                         var data = response.webPages.value; //webpage look up
-                        $('#renewingLicenseBody').html('');
+                        $('#renewingLicenseBox').html('');
                         for (var i = 0; i < data.length; i++) { // Loop through data and print to page 
                             let situs = data[i];
                             let element = `<div class="siteList">
@@ -205,12 +206,11 @@
                                 <span class="displayUrl">${situs.displayUrl}</span> <br/> 
                                 ${situs.snippet}
                                 </div>`;
-                            $('#renewingLicenseBody').append(element);
+                            $('#renewingLicenseBox').append(element);
                         };
                     }
                 });
             });    
-
     //     //load WebFont
     // WebFont.load({
     //     google:{
