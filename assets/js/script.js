@@ -1,114 +1,203 @@
-//Global Vars
-    let apiKeyBing = "", //Bing API
-        emailToken = "d8550441-dec0-40c8-b841-9743e0615874", //Security Token SMTPJS
-        cUser = ""; //Current logged-in user
+// Initialize Firebase=================================================================================================================================================
+  var config = {
+    apiKey: "AIzaSyAxJKb68oS4OtyRyWuwNtJ39XFcuCAkVSc",
+    authDomain: "licensetracker-13f89-a629a.firebaseapp.com",
+    databaseURL: "https://licensetracker-13f89-a629a.firebaseio.com",
+    projectId: "licensetracker-13f89-a629a",
+    storageBucket: "licensetracker-13f89-a629a.appspot.com",
+    messagingSenderId: "492716446247"
+  };
+  firebase.initializeApp(config);
+  console.log(firebase);
 
-//main
-    //transition table into "DataTables"
-    $("#table1").DataTable();
 
-    //load firebase and initialize
-    const config = {
-            apiKey: "AIzaSyDwL23NKiNpWRbuJcX0LQHTpsu1-aSlryY",
-            authDomain: "licensetracker-13f89.firebaseapp.com",
-            databaseURL: "https://licensetracker-13f89.firebaseio.com",
-            projectId: "licensetracker-13f89",
-            storageBucket: "",
-            messagingSenderId: "738130896123"
+ //Global variables===================================================================================================================================================
+     
+     let emailToken = " 24bbb5ae-2e4e-4134-b6c5-c99d05d67ea3 ",
+         cUser = localStorage.getItem("userName"),
+         // connects to database
+         database = firebase.database(),
+         ref = database.ref('Users/' + cUser),
+         refProviders = database.ref('Providers'),
+         flagOld = false,
+         flagHidden = false;
+
+//Main================================================================================================================================================================
+
+    // //loads providers list
+    // refProviders.on("value", providersData, errData);
+
+    //loads main table
+    ref.on("value", loadData,errData);
+
+//listeners==========================================================================================================================================================
+
+    
+    //load selected record into div----------------------------------------------------------------------------------------------------------------------------------
+    $(document).on( 'click', '#table1 tbody tr', function (e) {
+
+        //hide delete and add buttons
+        if(flagHidden){
+            hideDeleteBtn();
+            hideAddBtn();
+            flagHidden = false;
         };
-    firebase.initializeApp(config);
-    database = firebase.database(); //shortcut ref
 
-    //load WebFont
-    WebFont.load({
-        google:{
-            families: ['Droid Sans', 'Droid Serif'] //fonts to be loaded
+        //clear selected in table
+        $("tr.selected").attr("class", "");
+
+        //sets the flag for existing license to true
+        flagOld = true;
+
+    //determan if selected record was already selected if
+        //if alerady selected deselect and clear div
+        if($(this).hasClass('selected')){
+            $(this).removeClass('selected'); // remove selected from form div
+            $("#firstName-input").val(""); // clear first name from form div
+            $("#lastName-input").val(""); // clear last name from form div
+            $("#licenseName-input").val(""); //clear license name from form div
+            $("#licenseExpiration-input").val(""); //clear license experation date from form div
+            $("#email-input").val(""); // clear email from form div
+            // $("#phoneNumber-input").val(""); // clear phone number from form div
         }
+        //add selected class to e and load information into div
+        else{
+
+            var tdList = this.getElementsByTagName('td');
+            console.log("selected fired")
+            // table.$('e.selected').removeClass('selected'); // remove selected class from priro seleceion
+            $(this).attr("class", 'selected'); // adds selected class to currently selected e
+            var firstName = tdList[0].innerHTML; // loads first name td into var
+            var lastName = tdList[1].innerHTML; // loads last name td into var
+            var licenseName = tdList[2].innerHTML; // loads license name td into var
+            var expirationDate = tdList[3].innerHTML; // loads license experation date td into var
+            let email = $(this).attr("data-email"); // loads email address data into var
+            // let phoneNumber = $(this).attr("data-phonenumber"); // loads phoneNumber data into var
+            // let provider = $(this).attr("data-provider"); // loads provider data into var
+
+            // updates form view text to that of the selected tr
+            $("#firstName-input").val(firstName); 
+            $("#lastName-input").val(lastName); 
+            $("#licenseName-input").val(licenseName); 
+            $("#licenseExpiration-input").val(expirationDate);
+            $("#email-input").val(email);
+            // $("#phoneNumber-input").val(phoneNumber);
+            // $('*[data-sms="' + provider + '"]').attr("class", "selector");
+
+            for (var i = 0; i < tdList.length -1; i++) {
+              console.log(tdList[i].innerHTML);
+            };
+        };
     });
 
-
-// listeners
-
-    //load data
-    database.ref("users/" + cUser + "/").on("value", function (snapshot) {
-
-        //clears table for updated values to be loaded
-        $("#tableBody").empty();
-
-        // vars
-        var key = snapshot.key; // key value for current record
-        var fName = snapshot.val().fName; 
-        var lName = snapshot.val().lName;
-        var email = snapshot.val().email;
-        var phoneNumber = snapshot.val().phoneNumber;
-        var provider = snapshot.val().provider;
-        var experationDate = snapshot.val().experationDate;
-        var timeStamp = snapshot.val().timeStamp;
-
-        // loads values into table
-        $('#tableBody').append("<tr data-key'" + key + "' data-timestamp'" + timeStamp + "' id='row" + count + "'>" +
-            "<td class=>" + fName + "</td> <td class=>" + lName + "</td> <td class=>"
-            + email + "</td> <td class=>" + phoneNumber + "</td> <td class=>" + provider
-            + "</td> <td class=>" + experationDate + "</td><td><button class='btn btn-sm'>Renew</button></td></tr>")
-    });
-
-
-    //delte button
-    $('#delete-user').on("click", function(){
+    //delte button---------------------------------------------------------------------------------------------------------------------
+    $(document).on("click",'#delete-user', function(){
 
         //loads database key into var
-        let key =  $(".selected").data("key");
+        let key =  $(".selected").attr("data-key");
 
         //removes key form the database
-        database.ref("users/").child(key).remove();
+        ref.child(key).remove();
 
     });
 
+    //add new lincese----------------------------------------------------------------------------------------------------------------------------------------------
+    $(document).on("click", "#add-user", function(){
+        //clear the from
+        $("#firstName-input").val(""); // clear first name from form div
+        $("#lastName-input").val(""); // clear last name from form div
+        $("#licenseName-input").val(""); //clear license name from form div
+        $("#licenseExpiration-input").val(""); //clear license experation date from form div
+        $("#email-input").val(""); // clear email from form div
+        // $("#phoneNumber-input").val(""); // clear phone number from form div
 
-    //save button
-    $('#update-user').on("click", function(){
+        //clear selected in table
+        $("tr.selected").attr("class", "");
+        flagOld = false;
+
+    });
+
+    //save button-------------------------------------------------------------------------------------------------------------------------------------------------
+    $(document).on("click", '#update-user', function(){
 
         //update firebase data
         let fName = $('#firstName-input').val(), // firstName
             lName = $('#lastName-input').val(), //lname
+            license = $('#licenseName-input').val(),
             email = $('#email-input').val(), //email
-            phoneNumber = $('#phoneNumber-input').val(), //phoneNumber
-            provider = $('#pr').val(), //provider
-            experationDate = $('licenseExpiration-input').val(); //ExpirationDate
-            timeStamp = moment();
+            // phoneNumber = $('#phoneNumber-input').val(), //phoneNumber
+            // provider = $('ul li a.selector').attr("data-sms"), //provider
+            experationDate = $('#licenseExpiration-input').val(); //ExpirationDate
+            timeStamp = moment().unix("X"), //timestamp
+            key = $("tr.selected").attr("data-key"); //key
+            console.log(key);
+            console.log(fName);
+            console.log(lName);
+            console.log(email);
+            // console.log(phoneNumber);
+            // console.log(provider);
+            console.log(experationDate);
+            console.log(timeStamp);
 
-        database.ref("useres/" + cUser + "/" + key + "/").set({
 
-            fname: fName,
-            lName: lName,
-            email: email,
-            phoneNumber: phoneNumber,
-            provider: provider,
-            experationDate: experationDate,
-            timeStamp: timeStamp
+            //checks if the record already exists
+            if(flagOld){
+                console.log("set fired");
 
-        });
+                //updates record if one already exists
+                let current = database.ref('Users/' + cUser + "/" + key);
+                current.set({
+                  licenseName: license,
+                  fName: fName, 
+                  lName: lName,
+                  email: email,
+                  // phoneNumber: phoneNumber,
+                  // provider: provider,
+                  experationDate: experationDate,
+                  timeStamp: timeStamp
+
+                });
+            }else{
+                console.log("push fired");
+                //adds record if new
+                ref.push({
+                  licenseName: license,
+                  fName: fName, 
+                  lName: lName,
+                  email: email,
+                  // phoneNumber: phoneNumber,
+                  // provider: provider,
+                  experationDate: experationDate,
+                  timeStamp: timeStamp
+                });
+            };
 
         //clear form
         $(".details").empty();
 
     });
 
-    //record selected
-    $("#table1 tbody").on( 'click', 'tr', function (event) {
+    // //updates selector for provider-------------------------------------------------------------------------------------------------------------------------------
+    // $(document).on("click",'.dropdown-menu li a', function(){
 
-        exposeRecord(event);
+    //   //remvoes selector from last selection
+    //   $('ul li a.selector').removeClass('selector');
 
-        });
+    //   //adds selector to new selection
+    //   $(this).closest('li a').addClass('selector');
 
-    //renew
-    $('?button').click(function() {
+    // });
+
+    // bing-------------------------------------------------------------------------------------------------------------------------------------------------------
+    $(document).on("click", '.renew', function() {
+
                 bingSearch({
+
                     apiKey: '750b5059619f4815b940215b929846f1', //api Key
-                    keyword: license + "renew" + ?location , // keyword lookup
+                    keyword: license + "renew", // keyword lookup
                     onSuccess: function(response) {
                         var data = response.webPages.value; //webpage look up
-                        $('?result').html('');
+                        $('#renewingLicenseBody').html('');
                         for (var i = 0; i < data.length; i++) { // Loop through data and print to page 
                             let situs = data[i];
                             let element = `<div class="siteList">
@@ -116,194 +205,131 @@
                                 <span class="displayUrl">${situs.displayUrl}</span> <br/> 
                                 ${situs.snippet}
                                 </div>`;
-                            $('.?result').append(element);
-                        }
+                            $('#renewingLicenseBody').append(element);
+                        };
                     }
                 });
+            });    
+
+    //     //load WebFont
+    // WebFont.load({
+    //     google:{
+    //         families: ['Droid Sans', 'Droid Serif'] //fonts to be loaded
+    //     }
+    // });
+
+//functions==================================================================================================================================================
+
+    //Reports error to console-------------------------------------------------------------------------------------------------------------------------------
+    function errData(err){
+
+     console.log('error!');
+      console.log(err);
+
+    }
+
+    //loads data returned from Firebase to local table-------------------------------------------------------------------------------------------------------
+    function loadData(data){
+
+      //hide delete and add buttons and sets flag hidden to false
+      hideDeleteBtn();
+      hideAddBtn();
+      flagHidden = true;
+
+      //clears table for updated values to be loaded
+            $("#tableBody").empty();
+
+      //vars
+      let returnObj = data.val(); //returns the data in a readable Object form
+      let keys;
+      let count = 0; // used for row count
+
+      if (returnObj === null) {
+            
+            
+        }else{
+            // You have an array 
+            keys = Object.keys(returnObj); //builds array of keys from returned data
+               
+        
+            console.log(returnObj);//logs obj to console for debuging
+
+            //foreEach loop to build table rows
+            keys.forEach(function(key, index, keys){
+                //loads obj propertis into var
+                let fName = returnObj[key].fName,
+                    lName = returnObj[key].lName,
+                    email = returnObj[key].email,
+                    // phoneNumber = returnObj[key].phoneNumber,
+                    // provider = returnObj[key].provider,
+                    license = returnObj[key].licenseName,
+                    experationDate = returnObj[key].experationDate,
+                    timeStamp = returnObj[key].timeStamp;
+                    // providerID = $('*[data-sms="' + provider + '"]').attr("data-sms");
+                        // console.log("get phoenNumber = " + phoneNumber);
+
+
+
+                // loads values into table
+                $('#tableBody').append("<tr data-key='" + key + "' data-email='" + email + "' data-timestamp'" + timeStamp + "' id='row" + count + "'>" +
+                    "<td class=>" + fName + "</td> <td class=>" + lName + "</td><td class=>" + license + "</td><td class=>" + experationDate +
+                     "</td><td><button class='btn btn-sm renew'>Renew</button></td></tr>");
+
+                count++; // increments the count for each row
+
+                let numDays = moment().diff(experationDate, 'days'); // finds the number of days between now and the experation date (returns as a negitive)
+                console.log(numDays); // shows the number of days 
+                let recent = moment().diff(timeStamp, 'hours'); //determans if an email was sent in the last 24 hours
+
+                if(numDays > -60){
+                    if(recent > -24){
+                        //sends email
+                        if (email != undefined || email != null || email != ""){
+
+                            let current = database.ref('Users/' + cUser + "/" + key),
+                            update = moment().unix("X");
+                            current.update({
+                              timeStamp: update
+                            });
+
+                            Email.send(
+                                "licensetrackerapp@gmail.com",
+                                email,
+                                "Your " + license + " is about to expire",
+                                "Our records indicate that your " + license + " will expire on " + experationDate
+                                + ". Please make preperations to renew license if you need help finding a place" +
+                                " to renew please login to your License Tracker profile, select " + license + " and click on renew.",
+                                "smtp.gmail.com",
+                                "licensetrackerapp",
+                                "NikolaTesla1856");
+                        };
+
+                   //  //sends sms
+                   //  if (phoneNumber != undefined || phoneNumber != null || phoneNumber != ""){
+
+                   //      let sms = phoneNumber + provider;
+                   //      console.log(sms);
+
+                   //      Email.send(
+                   //          "licensetrackerapp@gmail.com",
+                   //          email,
+                   //          "Your " + license + " is about to expire",
+                   //          "Our records indicate that your " + license + " will expire on " + experationDate
+                   //          + ". Please make preperations to renew license if you need help finding a place" +
+                   //          " to renew please login to your License Tracker profile, select " + license + " and click on renew.",
+                   //          "smtp.gmail.com",
+                   //          "licensetrackerapp",
+                   //          "NikolaTesla1856");
+
+                   // };
+
+                    };
+                };
             });
-
-    //add new lincese
-    $("#add-user").on("click", function(){
-        //clear the from
-        $(".details").empty();
-
-        //clear selected in table
-        $(".selected").class("");
-
-        });
-
-    //add 
-    $("#").on("click", function(){
-
-        let userName = $("#?").val();
-        let cheker = false;
-
-        database.child('login').orderByChild('userName').equalTo(userName).once("value", function(snapshot) {
-            if(snapshot != null || snapshot != ""){
-                cheker = true;
-            };
-        });
-
-        let userName = database.ref("login/").orderByChild.equalTo("key");
-        let userName = $("#?").val();
-
-        if(checker){
-            database.ref("login/").push({
-                userName: userName,
-                Password: $("#?").val()
-                });
-        }else{
-            $("#").text("This user name is already taken. Please choose another.");
         };
-        
-    });
+    };
 
-    //event listner for provider selector
-
-    //login
-    $("#?login").on("click", function(){
-
-        //capture val user put in
-        let checker = false;
-        let userName = $("#?").val();
-        let password = $("#?").val();
-        //check against firebase
-         database.child('login').orderByChild('userName').equalTo(userName).once("value", function(snapshot) {
-            if(snapshot != null || snapshot != ""){
-                cheker = true;
-            };
-        });
-
-         database.child('login').orderByChild('password').equalTo(password).once("value", function(snapshot) {
-            if(snapshot != null || snapshot != ""){
-                cheker = true;
-            } else{
-                cheker = false;
-            };
-        });
-        //if carry data to next page
-         //if match load next page
-        if(checker){
-            localStorage.setItem('userName', userName)
-            window.location.replace('...');
-        } else{
-            $('#?').text('your password or email is incorrect') //else dont match return message
-        }
-
-    })
-
-
-
-
-    //email template for cellphone
-    function email(emaiAddress, license, experationDate){
-
-        let email = emailAddress;
-
-        if (email != null || email != "") {
-            console.log("there was an issue with the email function. The requested domain is either null or empty")
-        }else{
-                Email.send("licensetracker@gmail.com",
-                email,
-                "Your " + license + " is about to expire",
-                "Our records indicate that your " + license + " will expire on " + experationDate
-                + ". Please make preperations to renew license if you need help finding a place" +
-                " to renew please click " + ? + " or copy and past into your browser",
-                "smtp.gmail.com",
-                {token: emailToken});
-        }
-
-    }
-
-
-    //email template for cellphone
-    function emailSMS(phoneNumber, provider, license, experationDate){
-
-        let domain = database.ref("providers/" + provider).once('value', show);
-        let email = phoneNumber + domain;
-
-        if (domain != null || domain != "") {
-            console.log("there was an issue with the emailSMS function. The requested domain is either null or empty")
-        }else{
-                Email.send("licensetracker@gmail.com",
-                email,
-                "Your " + license + " is about to expire",
-                "Our records indicate that your " + license + " will expire on " + experationDate
-                + ". Please make preperations to renew license if you need help finding a place" +
-                " to renew please click ? or copy and past into your browser",
-                "smtp.gmail.com",
-                {token: emailToken});
-        }
-
-    }
-
-    //Save / Update Record
-    function save(tableRowObj){
-
-        //checks to see if the data exists in firebase by checking if it has a user key
-        var checker = $(tableRowObj).attr("data-key");
-
-        //checks if the information exists in firebase. If it does it updates it. If not it adds a new reocrd
-        if (checker) { // add new record
-            database.ref("users/" + userName).push({
-                fName: $("#firstName-input").val(),
-                lName: $("#lastName-input").val(),
-                email: $("#email-input").val(),
-                phoneNumber: $("#phoneNumber-input").val(),
-                provider: $("ul li[data-state='selected']").val(),
-                experationDate: $("#licenseExpiration-input").val(),
-                timeStamp: moment().unix().format("X")
-        })
-        } else { // update existing record
-                database.ref("users/" + userName + "/" + checker).set({
-                    fName: $("#firstName-input").val(),
-                    lName: $("#lastName-input").val(),
-                    email: $("#email-input").val(),
-                    phoneNumber: $("#phoneNumber-input").val(),
-                    provider: $("ul li[data-state='selected']").val(),
-                    experationDate: $("#licenseExpiration-input").val(),
-                    timeStamp: moment().unix().format("X")
-        })
-            ;
-        }
-    }
-
-    //load selected record into div
-    function exposeRecord(tableRowObj){
-        
-        $("#table1 tbody").on( 'click', 'tr', function (e) {
-
-        //determan if selected record was already selected if
-            //if alerady selected deselect and clear div
-            if($(tableRowObj).hasClass('selected')){
-                $(tableRowObj).removeClass('selected'); // remove selected from form div
-                $("#firstName-input").val(""); // clear first name from form div
-                $("#lastName-input").val(""); // clear last name from form div
-                $("#licenseName-input").val(""); //clear license name from form div
-                $("#licenseExpiration-input").val(""); //clear license experation date from form div
-                $("#email-input").val(""); // clear email from form div
-                $("#phoneNumber-input").val(""); // clear phone number from form div
-            }
-            //add selected class to tr and load information into div
-            else{
-                table.$('tr.selected').removeClass('selected'); // remove selected class from priro selectrion
-                $(tableRowObj).addClass('selected'); // adds selected class to currently selected tr
-                var firstName = $(tableRowObj).eq(0).children("td").eq(0)[0].innerText; // loads first name td into var
-                var lastName = $(tableRowObj).eq(0).children("td").eq(1)[0].innerText; // loads last name td into var
-                var licenseName = $(tableRowObj).eq(0).children("td").eq(2)[0].innerText; // loads license name td into var
-                var expirationDate = $(tableRowObj).eq(0).children("td").eq(3)[0].innerText; // loads license experation date td into var
-                console.log($(tableRowObj).eq(0).children("td").eq(0)["0"].innerHTML); // console logs td's of selected tr
-
-                // updates form view text to that of the selected tr
-                $("#firstName-input").val(firstName); 
-                $("#lastName-input").val(lastName); 
-                $("#licenseName-input").val(licenseName); 
-                $("#licenseExpiration-input").val(expirationDate); 
-            }
-        });
-    
-    //Bing search
-    // search function 
+    // search function---------------------------------------------------------------------------------------------------------------------------------- 
     bingSearch = function(option) {
             let bingUrl = 'https://api.cognitive.microsoft.com/bing/v5.0/search';
             var options = $.extend({
@@ -328,5 +354,57 @@
                     return;
                 }
             });
-        }            
-    //====================================
+        };
+
+    //finds users---------------------------------------------------------------------------------------------------------------------------------------------
+    function getLocation() {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    };
+
+    //expose location-----------------------------------------------------------------------------------------------------------------------------------------
+    function showPosition(position){
+        latitude = position.coords.latitude;
+        console.log(latitude);
+        longitude = position.coords.longitude;
+        console.log(longitude);
+        };
+
+    //hides or shows Delete button
+    function hideDeleteBtn(){
+        $('#delete-user').toggle();
+    };
+
+    //hides or shows add button
+    function hideAddBtn(){
+        $('#add-user').toggle();
+    };
+
+    //adds providers to providers list
+    // function providersData(data){
+    //     //clears table for updated values to be loaded
+    //         $("#dropdown-menu").empty();
+
+    //     //vars
+    //     let returnObj = data.val(), //returns the data in a readable Object form
+    //       keys = Object.keys(returnObj), //builds array of keys from returned data
+    //       count = 0; // used for row count
+
+    //     console.log(returnObj);//logs obj to console for debuging
+
+    //     //foreEach loop to build table rows
+    //     keys.forEach(function(key, index, keys){
+
+    //         //loads obj propertis into var
+    //         let value = returnObj[key],
+    //             idKey = key.split(' ').join('');
+    //         console.log(value);
+            
+    //         // loads values into table
+    //         $('.dropdown-menu').append("<li id='" + idKey + "' data-contact='" + value + "'>" + key + "</li>");
+
+    //     });
+        
+    // };
+            
+
+            

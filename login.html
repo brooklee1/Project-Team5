@@ -120,26 +120,42 @@
 
 </div>
 
-<!--JQUERY-->
-<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<!--Scripts-->
+
+<!--AJAX/jquery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- inks js bundle -->
+<script type="text/javascript" src="http://fastly.ink.sapo.pt/3.1.10/js/ink-all.js"></script>
 
 <!--Bootstrap-->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<!--Datatables-->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+
+<!--Local JS-->
+<script type="text/javascript" src="assets/js/login.js"></script>
+
+<!--Firebase data-->
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+
+<!-- test browser flexbox support and load legacy grid if unsupported -->
+<script type="text/javascript" src="http://cdn.ink.sapo.pt/3.1.10/js/modernizr.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-
-        var sideslider = $('[data-toggle=collapse-side]');
-        var sel = sideslider.attr('data-target');
-        var sel2 = sideslider.attr('data-target-2');
-        sideslider.click(function (event) {
-            $(sel).toggleClass('in');
-            $(sel2).toggleClass('out');
-        });
-
+    Modernizr.load({
+        test: Modernizr.flexbox,
+        nope: 'http://cdn.ink.sapo.pt/3.1.10/css/ink-legacy.min.css'
     });
-
-
 </script>
+
+<!-- load Ink's javascript files from the cdn -->
+<script type="text/javascript" src="http://cdn.ink.sapo.pt/3.1.10/js/holder.js"></script>
+<script type="text/javascript" src="http://cdn.ink.sapo.pt/3.1.10/js/ink-all.min.js"></script>
+<script type="text/javascript" src="http://cdn.ink.sapo.pt/3.1.10/js/autoload.js"></script>
+
+
 </body>
 </html>
