@@ -352,102 +352,11 @@
 <script type="text/javascript" src="http://cdn.ink.sapo.pt/3.1.10/js/ink-all.min.js"></script>
 <script type="text/javascript" src="http://cdn.ink.sapo.pt/3.1.10/js/autoload.js"></script>
 
-<!-- moment.js -->
-<script src="assets/js/moment.js"></script>
-
 <!--Local JS-->
 <script type="text/javascript" src="assets/js/script.js"></script>
 
-
-<!--Sample code for datatables for them to run in the meantime-->
-
-<!-- <script type="text/javascript">
-    $(document).ready(function () {
-
-        var sideslider = $('[data-toggle=collapse-side]');
-        var sel = sideslider.attr('data-target');
-        var sel2 = sideslider.attr('data-target-2');
-        sideslider.click(function(event){
-            $(sel).toggleClass('in');
-            $(sel2).toggleClass('out');
-        });
-
-        var table = $("#table1").DataTable();
-
-        $("#table1 tbody").on('click', 'tr', function (e) {
-
-            if ($(this).hasClass('selected')) {
-
-
-                $(this).removeClass('selected');
-
-                $("#firstName-input").val("");
-                $("#lastName-input").val("");
-                $("#licenseName-input").val("");
-                $("#licenseExpiration-input").val("");
-                $("#email-input").val("");
-                $("#phoneNumber-input").val("");
-
-            }
-
-            else {
-
-
-                table.$('tr.selected').removeClass('selected');
-                $(this).addClass('selected');
-
-                var firstName = $(this).eq(0).children("td").eq(0)[0].innerText;
-
-                var lastName = $(this).eq(0).children("td").eq(1)[0].innerText;
-
-                var licenseName = $(this).eq(0).children("td").eq(2)[0].innerText;
-
-                var expirationDate = $(this).eq(0).children("td").eq(3)[0].innerText;
-
-                console.log($(this).eq(0).children("td").eq(0)["0"].innerHTML);
-
-                $("#firstName-input").val(firstName);
-                $("#lastName-input").val(lastName);
-                $("#licenseName-input").val(licenseName);
-                $("#licenseExpiration-input").val(expirationDate);
-
-                $('#update-user').on('click', function () {
-
-                    var firstName = $("#firstName-input").val();
-                    var lastName = $("#lastName-input").val();
-                    var licenseName = $("#licenseName-input").val();
-                    var expirationDate = $("#licenseExpiration-input").val();
-
-
-                    $(".selected").eq(0).children("td").eq(0)[0].innerHTML(firstName);
-                    $(".selected").eq(0).children("td").eq(1)[0].innerHTML(lastName);
-                    $(".selected").eq(0).children("td").eq(2)[0].innerHTML(licenseName);
-                    $(".selected").eq(0).children("td").eq(3)[0].innerHTML(expirationDate);
-
-                });
-
-            }
-
-
-        });
-
-
-        $('#delete-user').click(function () {
-            table.row('.selected').remove().draw(false);
-        });
-
-        $('#add-user').on('click', function () {
-
-            table.row.add([$("#firstName-input").val(),
-                $("#lastName-input").val(),
-                $("#licenseName-input").val(),
-                $("#licenseExpiration-input").val()]).draw(false);
-
-        });
-
-    });
-</script> -->
-
+<!-- moment.js -->
+<script src="assets/js/moment.js"></script>
 
 </body>
 
